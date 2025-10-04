@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CurrencyTerminal.App.Common;
+using CurrencyTerminal.App.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,7 @@ namespace CurrencyTerminal.App.Interfaces
 {
     public interface ICurrencyRateService
     {
-
+        Task <Result<IEnumerable<CurrencyRateDto>>> GetAllCurrencyRate(DateTime? onDate = null);
 
     }
 }

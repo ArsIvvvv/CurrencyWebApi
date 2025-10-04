@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CurrencyTerminal.App.DTO
 {
-    internal class CurrencyRateDto
+    public class CurrencyRateDto
     {
+        public string Code { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public double Rate { get; set; }
     }
 }

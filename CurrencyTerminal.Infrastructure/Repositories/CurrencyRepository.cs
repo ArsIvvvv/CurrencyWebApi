@@ -50,7 +50,9 @@ namespace CurrencyTerminal.Infrastructure.Repositories
                 double rate = double.TryParse(node.SelectSingleNode("VunitRate")?
                     .InnerText!, CultureInfo.InvariantCulture, out double resRate) ? resRate : 0;
 
-                result.Add(CurrencyRate.Create(code, name, rate, date));
+                var utcDate = DateTime.SpecifyKind(date.Date, DateTimeKind.Utc);
+
+                result.Add(CurrencyRate.Create(code, name, rate, utcDate));
             }
 
             return result;
