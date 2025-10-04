@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyTerminal.Domain", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyTerminal.Infrastructure", "CurrencyTerminal.Infrastructure\CurrencyTerminal.Infrastructure.csproj", "{FB7A532A-3236-A5F8-E2C8-421AFDA75DD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyTerminal.WebApi", "CurrencyTerminal.WebApi\CurrencyTerminal.WebApi.csproj", "{286628EC-A41E-4F50-86F6-B9581CEF792F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +29,15 @@ Global
 		{FB7A532A-3236-A5F8-E2C8-421AFDA75DD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB7A532A-3236-A5F8-E2C8-421AFDA75DD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB7A532A-3236-A5F8-E2C8-421AFDA75DD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{286628EC-A41E-4F50-86F6-B9581CEF792F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{286628EC-A41E-4F50-86F6-B9581CEF792F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{286628EC-A41E-4F50-86F6-B9581CEF792F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{286628EC-A41E-4F50-86F6-B9581CEF792F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C02C7A4-BFC1-4430-9108-08336CE96EE0}
 	EndGlobalSection
 EndGlobal

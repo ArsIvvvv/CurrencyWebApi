@@ -38,9 +38,9 @@ namespace CurrencyTerminal.Infrastructure.Repositories
             var date = onDate?? DateTime.UtcNow;
             var result = new List<CurrencyRate>();
 
-            var response = await _soapClient.GetCursOnDateXMLAsync(date);
-            if (response != null)
-                return null;
+            XmlNode response = await _soapClient.GetCursOnDateXMLAsync(date);
+            if (response == null)
+                return result;
 
             foreach (XmlNode node in response.ChildNodes)
             {
@@ -52,7 +52,7 @@ namespace CurrencyTerminal.Infrastructure.Repositories
 
                 var utcDate = DateTime.SpecifyKind(date.Date, DateTimeKind.Utc);
 
-                result.Add(CurrencyRate.Create(code, name, rate, utcDate));
+                result.Add(CurrencyRate.Create(code, name, rate));
             }
 
             return result;

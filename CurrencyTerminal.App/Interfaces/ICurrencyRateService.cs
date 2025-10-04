@@ -10,7 +10,7 @@ namespace CurrencyTerminal.App.Interfaces
 {
     public interface ICurrencyRateService
     {
-        Task <Result<IEnumerable<CurrencyRateDto>>> GetAllCurrencyRate(DateTime? onDate = null);
+        Task <Result<IEnumerable<CurrencyRateDto>>> GetAllCurrencyRates(DateTime? onDate = null);
 
     }
 }

@@ -20,7 +20,7 @@ namespace CurrencyTerminal.App.Service
             _currencyRateRepository = currencyRateRepository;
             _mapper = mapper;
         }
-        public async Task<Result<IEnumerable<CurrencyRateDto>>> GetAllCurrencyRate(DateTime? onDate = null)
+        public async Task<Result<IEnumerable<CurrencyRateDto>>> GetAllCurrencyRates(DateTime? onDate = null)
         {
            var currencyRateList = await _currencyRateRepository.GetAllCurrencyRateAsync(onDate);
 
