@@ -17,6 +17,7 @@ namespace CurrencyTerminal.Infrastructure.Repositories
     public class CurrencyRepository : ICurrencyRepository, IDisposable
     {
         private readonly DailyInfoSoapClient _soapClient;
+
         public CurrencyRepository()
         {
             _soapClient = new DailyInfoSoapClient(DailyInfoSoapClient.EndpointConfiguration.DailyInfoSoap);
@@ -49,18 +50,38 @@ namespace CurrencyTerminal.Infrastructure.Repositories
                 var name = node.SelectSingleNode("Vname")?.InnerText.Trim();
                 double rate = double.TryParse(node.SelectSingleNode("VunitRate")?
                     .InnerText!, CultureInfo.InvariantCulture, out double resRate) ? resRate : 0;
+                int nom = int.Parse(node.SelectSingleNode("Vnom")?.Value ?? "1");
 
-                var utcDate = DateTime.SpecifyKind(date.Date, DateTimeKind.Utc);
-
-                result.Add(CurrencyRate.Create(code, name, rate));
+                result.Add(CurrencyRate.Create(code, name, rate, nom));
             }
 
             return result;
         }
 
-        public Task<CurrencyRate?> GetCurrencyRateAsync(string code, DateTime? onDate = null)
+        public async Task<CurrencyRate?> GetCurrencyRateAsync(string codeRate, DateTime? onDate = null)
         {
-            throw new NotImplementedException();
+            var date = onDate ?? DateTime.UtcNow;
+
+            XmlNode response = await _soapClient.GetCursOnDateXMLAsync(date);
+            if (response == null)
+                return null;
+
+            foreach (XmlNode node in response.ChildNodes)
+            {
+                if(node.SelectSingleNode("VchCode")?.InnerText == codeRate)
+                {
+                    var code = node.SelectSingleNode("VchCode")?.InnerText.Trim();
+                    var name = node.SelectSingleNode("Vname")?.InnerText.Trim();
+                    double rate = double.TryParse(node.SelectSingleNode("VunitRate")?
+                        .InnerText!, CultureInfo.InvariantCulture, out double resRate) ? resRate : 0;
+                    int nom = int.Parse(node.SelectSingleNode("Vnom")?.Value ?? "1");
+
+                    return CurrencyRate.Create(code, name, rate, nom);
+                }
+            }
+
+             return null;
+
         }
         
     }

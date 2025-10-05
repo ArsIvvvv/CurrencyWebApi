@@ -13,18 +13,21 @@ namespace CurrencyTerminal.Domain.Entities
         public string Code { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public double Rate { get; set; }
+        public int Nominal { get; set; }
         public string Date { get; set; } = DateTime.UtcNow.ToShortDateString();
 
         public static CurrencyRate Create
             (string code,
             string name,
-            double value)
+            double value,
+            int nominal)
         {
             return new CurrencyRate
             {
                 Code = code,
                 Name = name,
                 Rate = value,
+                Nominal = nominal
             };
         }
         public bool Equals(CurrencyRate? other)

@@ -11,5 +11,6 @@ namespace CurrencyTerminal.App.DTO
         public string Code { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public double Rate { get; set; }
+        public int Nominal { get; set; }
     }
 }

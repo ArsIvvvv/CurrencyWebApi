@@ -15,11 +15,33 @@ namespace CurrencyTerminal.App.Service
     {
         private readonly ICurrencyRepository _currencyRateRepository;
         private readonly IMapper _mapper;
+
         public CurrencyRateService(ICurrencyRepository currencyRateRepository, IMapper mapper) 
         {
             _currencyRateRepository = currencyRateRepository;
             _mapper = mapper;
         }
+
+        public async Task<Result<Dictionary<string,string>>> GetAllCurrencyCodesAsync()
+        {
+            var codes = new Dictionary<string, string>();
+
+            var currencyRateList = await _currencyRateRepository.GetAllCurrencyRateAsync();
+
+            if(!currencyRateList.Any())
+                return Result<Dictionary<string, string>>
+                    .Failure($"Ошибка запроса к службам банка");
+           
+            foreach(var code in currencyRateList)
+            {
+                codes[code.Code] = code.Name; 
+            }
+
+            return Result<Dictionary<string, string>>
+               .Success(codes);
+
+        }
+
         public async Task<Result<IEnumerable<CurrencyRateDto>>> GetAllCurrencyRates(DateTime? onDate = null)
         {
            var currencyRateList = await _currencyRateRepository.GetAllCurrencyRateAsync(onDate);
@@ -30,6 +52,18 @@ namespace CurrencyTerminal.App.Service
 
             return Result<IEnumerable<CurrencyRateDto>>
                 .Success(_mapper.Map<IEnumerable<CurrencyRateDto>>(currencyRateList));
+        }
+
+        public async Task<Result<CurrencyRateDto>> GetCurrencyRateAsync(string currenctCode, DateTime? onDate = null)
+        {
+            var currencyRate = await _currencyRateRepository.GetCurrencyRateAsync(currenctCode,onDate);
+
+            if (currencyRate == null && onDate.HasValue)
+                return Result<CurrencyRateDto>
+                    .Failure($"Нет курса с таким кодом {currenctCode}");
+
+            return Result<CurrencyRateDto>
+                .Success(_mapper.Map<CurrencyRateDto>(currencyRate));
         }
     }
 }

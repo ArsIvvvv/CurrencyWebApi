@@ -11,6 +11,7 @@ namespace CurrencyTerminal.App.Interfaces
     public interface ICurrencyRateService
     {
         Task <Result<IEnumerable<CurrencyRateDto>>> GetAllCurrencyRates(DateTime? onDate = null);
-
+        Task<Result<Dictionary<string,string>>> GetAllCurrencyCodesAsync();
+        Task<Result<CurrencyRateDto>> GetCurrencyRateAsync(string currenctCode, DateTime? onDate = null);
     }
 }
